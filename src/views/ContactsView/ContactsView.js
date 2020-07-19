@@ -7,7 +7,11 @@ import FilterByGroup from "../../components/filterByGroup/FilterByGroup";
 import ResetButton from "../../components/resetButton/ResetButton";
 import Spinner from "../../components/spinner/Spinner";
 import Alert from "../../components/alert/Alert";
-import { contactsOperations, contactsSelectors } from "../../redux/contacts";
+import {
+  contactsOperations,
+  contactsSelectors,
+  contactsActions,
+} from "../../redux/contacts";
 import styles from "./ContactsView.module.css";
 
 const ContactsView = () => {
@@ -29,10 +33,15 @@ const ContactsView = () => {
   useEffect(() => {
     error && setAlert(true);
 
-    setTimeout(() => {
+    const alertTimeout = setTimeout(() => {
       setAlert(false);
+      dispatch(contactsActions.resetError());
+
+      return () => {
+        clearTimeout(alertTimeout);
+      };
     }, 3000);
-  }, [error]);
+  }, [error, dispatch]);
 
   return (
     <div className={styles.wrapper}>

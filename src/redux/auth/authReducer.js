@@ -54,6 +54,7 @@ const error = createSlice({
     loginError: (_, { payload }) => payload,
     getCurrentUserError: (_, { payload }) => payload,
     logoutError: (_, { payload }) => payload,
+    resetError: () => null,
   },
 });
 

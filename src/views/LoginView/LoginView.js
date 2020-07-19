@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authOperations, authSelectors } from "../../redux/auth";
+import { authOperations, authSelectors, authActions } from "../../redux/auth";
 import Alert from "../../components/alert/Alert";
 import styles from "./LoginView.module.css";
 
@@ -17,10 +17,15 @@ const LoginView = () => {
   useEffect(() => {
     error && setAlert(true);
 
-    setTimeout(() => {
+    const alertTimeout = setTimeout(() => {
       setAlert(false);
+      dispatch(authActions.resetError());
+
+      return () => {
+        clearTimeout(alertTimeout);
+      };
     }, 3000);
-  }, [error]);
+  }, [error, dispatch]);
 
   const handleChange = ({ target: { name, value } }) => {
     setState((prev) => ({ ...prev, [name]: value }));

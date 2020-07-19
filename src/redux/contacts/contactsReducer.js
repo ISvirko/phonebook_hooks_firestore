@@ -68,6 +68,7 @@ const error = createSlice({
     editContactError: (_, { payload }) => payload,
     getCollectionIdError: (_, { payload }) => payload,
     createCollectionError: (_, { payload }) => payload,
+    resetError: () => null,
   },
 });
 

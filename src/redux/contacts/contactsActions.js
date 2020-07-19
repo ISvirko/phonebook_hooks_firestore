@@ -40,6 +40,8 @@ const sortByGroup = createAction("contacts/sortByGroup");
 
 const resetSearch = createAction("contacts/resetSearch");
 
+const resetError = createAction("contacts/resetError");
+
 export default {
   createCollectionRequest,
   createCollectionSuccess,
@@ -76,4 +78,6 @@ export default {
   sortByGroup,
 
   resetSearch,
+
+  resetError,
 };
