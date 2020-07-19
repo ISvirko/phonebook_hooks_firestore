@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ContactForm from "../../components/contactForm/ContactForm";
 import ContactList from "../../components/contactList/ContactList";
@@ -16,6 +16,7 @@ const ContactsView = () => {
   const collectionId = useSelector((state) => state.collectionId);
   const isLoading = useSelector((state) => contactsSelectors.getLoading(state));
   const error = useSelector((state) => contactsSelectors.getError(state));
+  const [isAlert, setAlert] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -25,11 +26,19 @@ const ContactsView = () => {
       : dispatch(contactsOperations.createCollection());
   }, [dispatch, collectionId]);
 
+  useEffect(() => {
+    error && setAlert(true);
+
+    setTimeout(() => {
+      setAlert(false);
+    }, 3000);
+  }, [error]);
+
   return (
     <div className={styles.wrapper}>
       {isLoading && <Spinner />}
 
-      {error && <Alert title={error} show={true} />}
+      {error && <Alert title={error} show={isAlert} />}
 
       <ContactForm />
       <h2 className={darkTheme ? styles.titleContDark : styles.titleContacts}>
