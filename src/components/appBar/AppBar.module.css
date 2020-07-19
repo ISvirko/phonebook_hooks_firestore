@@ -1,0 +1,16 @@
+.logoWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 25%;
+}
+
+.navWrapper {
+  padding-left: 50px;
+  display: flex;
+  flex-basis: 40%;
+}
+
+.authWrapper {
+  display: flex;
+  flex-basis: 25%;
+}

@@ -1,0 +1,36 @@
+.group {
+  font-size: 10px;
+  font-weight: 600;
+  color: #56cc9de6;
+  position: absolute;
+  left: 6px;
+  top: 6px;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+}
+
+.number {
+  font-style: italic;
+  margin: 0;
+}
+
+.contactWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.contactInfo {
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 60%;
+  margin-right: 20px;
+  align-items: center;
+}
+
+.btnWrapper {
+  flex-basis: content;
+}

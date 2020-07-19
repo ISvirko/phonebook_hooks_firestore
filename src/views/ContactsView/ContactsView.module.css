@@ -1,0 +1,20 @@
+.wrapper {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.titleContacts {
+  margin-bottom: 30px;
+}
+
+.titleContDark {
+  margin-bottom: 30px;
+  color: white;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}

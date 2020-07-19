@@ -1,0 +1,13 @@
+.formEdit {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 0.12rem rgba(86, 204, 157, 0.25);
+  margin-bottom: 20px;
+}
+
+.selectEdit {
+  flex-basis: 28%;
+  text-align: left;
+}

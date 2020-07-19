@@ -1,0 +1,13 @@
+.logo {
+  text-align: left;
+  margin-right: 30px;
+}
+
+.appear {
+  transform: translateX(-100%);
+}
+
+.appearActive {
+  transform: translateX(0);
+  transition: transform 500ms linear;
+}

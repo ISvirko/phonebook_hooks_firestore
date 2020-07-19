@@ -1,0 +1,19 @@
+.label {
+  width: 16px;
+  height: 16px;
+  background-image: url(../../../assets/images/star.png);
+  background-size: contain;
+  background-position: center;
+  margin: 0;
+  margin-right: 10px;
+  line-height: 20px;
+}
+
+.star {
+  composes: label;
+  background-image: url(../../../assets/images/staryellow.png);
+}
+
+.input {
+  visibility: hidden;
+}

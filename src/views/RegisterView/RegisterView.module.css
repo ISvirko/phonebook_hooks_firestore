@@ -1,0 +1,25 @@
+.title {
+  margin-bottom: 30px;
+}
+
+.form {
+  margin-bottom: 60px;
+  padding: 20px;
+  border: 1px solid rgb(218, 218, 218);
+  width: 600px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.select {
+  line-height: 28px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+  color: rgb(138, 138, 138);
+  border-color: rgb(138, 138, 138);
+}
+
+.formLabel {
+  font-weight: 600;
+}
