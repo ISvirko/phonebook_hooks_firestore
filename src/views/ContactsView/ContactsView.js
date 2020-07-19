@@ -20,12 +20,9 @@ const ContactsView = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function fetchData() {
-      collectionId
-        ? await dispatch(contactsOperations.fetchContacts())
-        : await dispatch(contactsOperations.createCollection());
-    }
-    fetchData();
+    collectionId
+      ? dispatch(contactsOperations.fetchContacts())
+      : dispatch(contactsOperations.createCollection());
   }, [dispatch, collectionId]);
 
   return (

@@ -4,8 +4,8 @@ import contactsActions from "./contactsActions";
 // HELPERS
 
 const collectionConfig = {
-  title: "contacts",
-  userCollection: "userContacts",
+  title: "contact book",
+  userCollection: "user contacts",
 };
 
 const getCollectionPath = (state) => {

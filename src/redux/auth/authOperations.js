@@ -33,11 +33,6 @@ const login = ({ email, password }) => async (dispatch) => {
     const user = await db.auth.currentUser;
     dispatch(authActions.loginSuccess(user));
   } catch (error) {
-    if (error.code === "auth/wrong-password") {
-      alert("Wrong password");
-    } else {
-      alert(error.message);
-    }
     dispatch(authActions.registerError(error.message));
   }
 };
