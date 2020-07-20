@@ -10,8 +10,9 @@ import Alert from "../../components/alert/Alert";
 import {
   contactsOperations,
   contactsSelectors,
-  contactsActions,
+  contactsSlice,
 } from "../../redux/contacts";
+
 import styles from "./ContactsView.module.css";
 
 const ContactsView = () => {
@@ -20,7 +21,7 @@ const ContactsView = () => {
   const collectionId = useSelector((state) => state.collectionId);
   const isLoading = useSelector((state) => contactsSelectors.getLoading(state));
   const error = useSelector((state) => contactsSelectors.getError(state));
-  const [isAlert, setAlert] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -35,7 +36,7 @@ const ContactsView = () => {
 
     const alertTimeout = setTimeout(() => {
       setAlert(false);
-      dispatch(contactsActions.resetError());
+      error && dispatch(contactsSlice.error.actions.resetError());
 
       return () => {
         clearTimeout(alertTimeout);
@@ -47,7 +48,7 @@ const ContactsView = () => {
     <div className={styles.wrapper}>
       {isLoading && <Spinner />}
 
-      {error && <Alert title={error} show={isAlert} />}
+      {error && <Alert title={error} show={alert} />}
 
       <ContactForm />
       <h2 className={darkTheme ? styles.titleContDark : styles.titleContacts}>

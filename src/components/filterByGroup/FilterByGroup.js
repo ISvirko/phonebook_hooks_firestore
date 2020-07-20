@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CustomSelect from "../../ui/CustomSelect";
-import { contactsActions, contactsSelectors } from "../../redux/contacts";
+import { contactsSlice, contactsSelectors } from "../../redux/contacts";
 import styles from "./FilterByGroup.module.css";
 
 const FilterByGroup = () => {
@@ -12,7 +12,9 @@ const FilterByGroup = () => {
   return (
     <div className={styles.filterWrapper}>
       <CustomSelect
-        onChange={({ value }) => dispatch(contactsActions.sortByGroup(value))}
+        onChange={({ value }) =>
+          dispatch(contactsSlice.groupSort.actions.sortByGroup(value))
+        }
         value={
           group
             ? { value: group, label: group }

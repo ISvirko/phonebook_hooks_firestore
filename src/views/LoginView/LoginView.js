@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { authOperations, authSelectors, authActions } from "../../redux/auth";
+import { authOperations, authSelectors, authSlice } from "../../redux/auth";
 import Alert from "../../components/alert/Alert";
 import styles from "./LoginView.module.css";
 
@@ -10,7 +10,7 @@ const initialState = {
 };
 const LoginView = () => {
   const [state, setState] = useState(initialState);
-  const [isAlert, setAlert] = useState(false);
+  const [alert, setAlert] = useState(false);
   const dispatch = useDispatch();
   const error = useSelector((state) => authSelectors.getError(state));
 
@@ -19,7 +19,7 @@ const LoginView = () => {
 
     const alertTimeout = setTimeout(() => {
       setAlert(false);
-      dispatch(authActions.resetError());
+      error && dispatch(authSlice.error.actions.resetError());
 
       return () => {
         clearTimeout(alertTimeout);
@@ -41,7 +41,7 @@ const LoginView = () => {
 
   return (
     <>
-      {error && <Alert title={error} show={isAlert} />}
+      {error && <Alert title={error} show={alert} />}
 
       <h1 className={styles.title}>Login</h1>
       <form onSubmit={handleSubmit} className={styles.form}>

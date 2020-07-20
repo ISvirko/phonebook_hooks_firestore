@@ -1,10 +1,10 @@
-import authActions from "./authActions";
+import authSlice from "./authSlice";
 import db from "../../db/dbConfig";
 
 // REGISTER
 
 const register = ({ name, email, password }) => async (dispatch) => {
-  dispatch(authActions.registerRequest());
+  dispatch(authSlice.loading.actions.registerRequest());
 
   try {
     await db.auth.createUserWithEmailAndPassword(email, password);
@@ -16,38 +16,38 @@ const register = ({ name, email, password }) => async (dispatch) => {
 
     const currentUser = await db.auth.currentUser;
 
-    dispatch(authActions.registerSuccess(currentUser));
+    dispatch(authSlice.user.actions.registerSuccess(currentUser));
   } catch (error) {
-    dispatch(authActions.registerError(error.message));
+    dispatch(authSlice.error.actions.registerError(error.message));
   }
 };
 
 // LOGIN
 
 const login = ({ email, password }) => async (dispatch) => {
-  dispatch(authActions.loginRequest());
+  dispatch(authSlice.loading.actions.loginRequest());
 
   try {
     await db.auth.signInWithEmailAndPassword(email, password);
 
     const user = await db.auth.currentUser;
-    dispatch(authActions.loginSuccess(user));
+    dispatch(authSlice.user.actions.loginSuccess(user));
   } catch (error) {
-    dispatch(authActions.registerError(error.message));
+    dispatch(authSlice.error.actions.registerError(error.message));
   }
 };
 
 // LOGOUT
 
 const logout = () => async (dispatch) => {
-  dispatch(authActions.logoutRequest());
+  dispatch(authSlice.loading.actions.logoutRequest());
 
   try {
     await db.auth.signOut();
 
-    dispatch(authActions.logoutSuccess());
+    dispatch(authSlice.user.actions.logoutSuccess());
   } catch (error) {
-    dispatch(authActions.logoutError(error.message));
+    dispatch(authSlice.error.actions.logoutError(error.message));
   }
 };
 
@@ -57,14 +57,14 @@ const getCurrentUser = () => async (dispatch, getState) => {
   const { uid } = getState();
   if (!uid) return;
 
-  dispatch(authActions.getCurrentUserRequest());
+  dispatch(authSlice.loading.actions.getCurrentUserRequest());
 
   try {
     await db.auth.onAuthStateChanged((user) => {
-      user && dispatch(authActions.getCurrentUserSuccess(user));
+      user && dispatch(authSlice.user.actions.getCurrentUserSuccess(user));
     });
   } catch (error) {
-    dispatch(authActions.getCurrentUserError(error.message));
+    dispatch(authSlice.error.actions.getCurrentUserError(error.message));
   }
 };
 

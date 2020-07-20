@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import CustomSelect from "../../ui/CustomSelect";
-import { contactsOperations, contactsActions } from "../../redux/contacts";
+import { contactsOperations, contactsSlice } from "../../redux/contacts";
 import styles from "./EditForm.module.css";
 
 const EditForm = ({ editedContact }) => {
@@ -35,7 +35,7 @@ const EditForm = ({ editedContact }) => {
       setNumber("");
       setGroup("");
 
-      dispatch(contactsActions.changeEditMode(editedContact.id));
+      dispatch(contactsSlice.items.actions.changeEditMode(editedContact.id));
     } else {
       alert("Please fill in the required fields");
     }

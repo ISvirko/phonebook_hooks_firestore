@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { themeActions } from "../../redux/theme";
+import { useDispatch, useSelector } from "react-redux";
+import { themeSlice } from "../../redux/theme";
 import "./themeToggler.css";
 
 const ThemeToggler = () => {
@@ -31,7 +31,7 @@ const ThemeToggler = () => {
           name="theme"
           id="theme-switch-control"
           checked={darkTheme}
-          onChange={() => dispatch(themeActions.toggleTheme())}
+          onChange={() => dispatch(themeSlice.darkTheme.actions.toggleTheme())}
         />
         <label
           aria-hidden="true"

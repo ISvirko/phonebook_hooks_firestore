@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { contactsActions } from "../../redux/contacts";
+import { contactsSlice } from "../../redux/contacts";
 
 const ResetButton = () => {
   const dispatch = useDispatch();
@@ -9,7 +9,10 @@ const ResetButton = () => {
     <button
       className="btn btn-warning"
       type="button"
-      onClick={() => dispatch(contactsActions.resetSearch())}
+      onClick={() => {
+        dispatch(contactsSlice.filter.actions.resetSearch());
+        dispatch(contactsSlice.groupSort.actions.resetSearch());
+      }}
     >
       <i className="fas fa-undo"></i>
     </button>

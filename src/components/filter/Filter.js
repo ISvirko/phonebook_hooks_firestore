@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { contactsActions, contactsSelectors } from "../../redux/contacts";
+import { contactsSlice, contactsSelectors } from "../../redux/contacts";
 
 const Filter = () => {
   const filter = useSelector((state) => contactsSelectors.getFilter(state));
@@ -13,7 +13,9 @@ const Filter = () => {
       className="form-control filter-input"
       placeholder="Search by name"
       value={filter}
-      onChange={(e) => dispatch(contactsActions.handleFilter(e.target.value))}
+      onChange={(e) =>
+        dispatch(contactsSlice.filter.actions.handleFilter(e.target.value))
+      }
     />
   );
 };

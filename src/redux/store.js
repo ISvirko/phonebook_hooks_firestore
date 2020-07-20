@@ -5,9 +5,9 @@ import {
 } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { authReducer } from "./auth";
-import { contactsReducer } from "./contacts";
-import { themeReducer } from "./theme";
+import { authSlice } from "./auth";
+import { contactsSlice } from "./contacts";
+import { themeSlice } from "./theme";
 
 const persistConfig = {
   key: "root",
@@ -17,23 +17,23 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   contacts: combineReducers({
-    items: contactsReducer.items.reducer,
-    filter: contactsReducer.filter.reducer,
-    loading: contactsReducer.loading.reducer,
-    error: contactsReducer.error.reducer,
-    groupSort: contactsReducer.groupSort.reducer,
+    items: contactsSlice.items.reducer,
+    filter: contactsSlice.filter.reducer,
+    loading: contactsSlice.loading.reducer,
+    error: contactsSlice.error.reducer,
+    groupSort: contactsSlice.groupSort.reducer,
   }),
 
-  collectionId: contactsReducer.collectionId.reducer,
+  collectionId: contactsSlice.collectionId.reducer,
 
-  darkTheme: themeReducer.darkTheme.reducer,
+  darkTheme: themeSlice.darkTheme.reducer,
 
   auth: combineReducers({
-    user: authReducer.user.reducer,
-    error: authReducer.error.reducer,
+    user: authSlice.user.reducer,
+    error: authSlice.error.reducer,
   }),
 
-  uid: authReducer.uid.reducer,
+  uid: authSlice.uid.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

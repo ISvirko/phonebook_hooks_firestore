@@ -1,5 +1,5 @@
 import db from "../../db/dbConfig";
-import contactsActions from "./contactsActions";
+import contactsSlice from "./contactsSlice";
 
 // HELPERS
 
@@ -32,7 +32,7 @@ const findCollection = async (state) => {
 const createCollection = () => async (dispatch, getState) => {
   const userName = getState().auth.user.name;
   const uid = getState().uid;
-  dispatch(contactsActions.createCollectionRequest());
+  dispatch(contactsSlice.loading.actions.createCollectionRequest());
 
   try {
     await db.firestore
@@ -42,26 +42,30 @@ const createCollection = () => async (dispatch, getState) => {
     const userCollection = await findCollection(getState());
 
     userCollection.docs.forEach((elem) => {
-      dispatch(contactsActions.createCollectionSuccess(elem.id));
+      dispatch(
+        contactsSlice.collectionId.actions.createCollectionSuccess(elem.id)
+      );
     });
   } catch (error) {
-    dispatch(contactsActions.createCollectionError(error.message));
+    dispatch(contactsSlice.error.actions.createCollectionError(error.message));
   }
 };
 
 // SET USER COLLECTION ID
 
 const setUserCollectionId = () => async (dispatch, getState) => {
-  dispatch(contactsActions.getCollectionIdRequest());
+  dispatch(contactsSlice.loading.actions.getCollectionIdRequest());
 
   try {
     const userCollection = await findCollection(getState());
 
     userCollection.docs.forEach((elem) => {
-      dispatch(contactsActions.getCollectionIdSuccess(elem.id));
+      dispatch(
+        contactsSlice.collectionId.actions.getCollectionIdSuccess(elem.id)
+      );
     });
   } catch (error) {
-    dispatch(contactsActions.getCollectionIdError(error.message));
+    dispatch(contactsSlice.error.actions.getCollectionIdError(error.message));
   }
 };
 
@@ -86,7 +90,7 @@ const addContact = ({ name, number, selectedGroup }) => async (
     isInEditMode: false,
   };
 
-  dispatch(contactsActions.addContactRequest());
+  dispatch(contactsSlice.loading.actions.addContactRequest());
 
   try {
     const userCollection = getCollectionPath(getState());
@@ -99,56 +103,52 @@ const addContact = ({ name, number, selectedGroup }) => async (
       ...doc.data().contact,
     }));
 
-    dispatch(contactsActions.addContactSuccess(contacts));
+    dispatch(contactsSlice.items.actions.addContactSuccess(contacts));
   } catch (error) {
-    dispatch(contactsActions.addContactError(error.message));
+    dispatch(contactsSlice.error.actions.addContactError(error.message));
   }
 };
 
 // FETCH CONTACTS
 
 const fetchContacts = () => async (dispatch, getState) => {
-  dispatch(contactsActions.fetchContactsRequest());
+  dispatch(contactsSlice.loading.actions.fetchContactsRequest());
 
   try {
     const userCollection = getCollectionPath(getState());
 
-    if (userCollection) {
-      const data = await userCollection.get();
+    const data = await userCollection.get();
 
-      const contacts = data.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data().contact,
-      }));
+    const contacts = data.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data().contact,
+    }));
 
-      dispatch(contactsActions.fetchContactsSuccess(contacts));
-    } else {
-      dispatch(contactsActions.fetchContactsSuccess([]));
-    }
+    dispatch(contactsSlice.items.actions.fetchContactsSuccess(contacts));
   } catch (error) {
-    dispatch(contactsActions.fetchContactsError(error.message));
+    dispatch(contactsSlice.error.actions.fetchContactsError(error.message));
   }
 };
 
 // DELETE CONTACT
 
 const deleteContact = (id) => async (dispatch, getState) => {
-  dispatch(contactsActions.deleteContactRequest());
+  dispatch(contactsSlice.loading.actions.deleteContactRequest());
 
   try {
     const userCollection = getCollectionPath(getState());
     await userCollection.doc(id).delete();
 
-    dispatch(contactsActions.deleteContactSuccess(id));
+    dispatch(contactsSlice.items.actions.deleteContactSuccess(id));
   } catch (error) {
-    dispatch(contactsActions.deleteContactError(error.message));
+    dispatch(contactsSlice.error.actions.deleteContactError(error.message));
   }
 };
 
 // TOGGLE FAVORITE
 
 const toggleFavorite = (contact) => async (dispatch, getState) => {
-  dispatch(contactsActions.toggleFavoriteRequest());
+  dispatch(contactsSlice.loading.actions.toggleFavoriteRequest());
 
   try {
     const userCollection = getCollectionPath(getState());
@@ -157,13 +157,13 @@ const toggleFavorite = (contact) => async (dispatch, getState) => {
       .update({ contact: { ...contact, favorite: !contact.favorite } });
 
     dispatch(
-      contactsActions.toggleFavoriteSuccess({
+      contactsSlice.items.actions.toggleFavoriteSuccess({
         ...contact,
         favorite: !contact.favorite,
       })
     );
   } catch (error) {
-    dispatch(contactsActions.toggleFavoriteError(error.message));
+    dispatch(contactsSlice.error.actions.toggleFavoriteError(error.message));
   }
 };
 
@@ -173,7 +173,7 @@ const editContact = (editedContact, { name, number, selectedGroup }) => async (
   dispatch,
   getState
 ) => {
-  dispatch(contactsActions.editContactRequest());
+  dispatch(contactsSlice.loading.actions.editContactRequest());
 
   const newContact = {
     ...editedContact,
@@ -189,9 +189,9 @@ const editContact = (editedContact, { name, number, selectedGroup }) => async (
       contact: newContact,
     });
 
-    dispatch(contactsActions.editContactSuccess(newContact));
+    dispatch(contactsSlice.items.actions.editContactSuccess(newContact));
   } catch (error) {
-    dispatch(contactsActions.editContactError(error.message));
+    dispatch(contactsSlice.error.actions.editContactError(error.message));
   }
 };
 

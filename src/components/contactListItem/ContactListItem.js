@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Favorites from "./favorites/Favorites";
 import {
   contactsOperations,
-  contactsActions,
+  contactsSlice,
   contactsSelectors,
 } from "../../redux/contacts";
 import styles from "./ContactListItem.module.css";
@@ -30,7 +30,7 @@ const ContactListItem = ({ contactId }) => {
               type="button"
               className="btn btn-info btn-edit"
               onClick={() =>
-                dispatch(contactsActions.changeEditMode(contact.id))
+                dispatch(contactsSlice.items.actions.changeEditMode(contact.id))
               }
             >
               <i className="fas fa-pen"></i>

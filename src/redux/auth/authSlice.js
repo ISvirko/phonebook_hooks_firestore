@@ -58,4 +58,27 @@ const error = createSlice({
   },
 });
 
-export default { user, error, uid };
+const loading = createSlice({
+  name: "auth",
+  initialState: false,
+
+  reducers: {
+    registerRequest: () => true,
+    registerSuccess: () => false,
+    registerError: () => false,
+
+    loginRequest: () => true,
+    loginSuccess: () => false,
+    loginError: () => false,
+
+    getCurrentUserRequest: () => true,
+    getCurrentUserSuccess: () => false,
+    getCurrentUserError: () => false,
+
+    logoutRequest: () => true,
+    logoutSuccess: () => false,
+    logoutError: () => false,
+  },
+});
+
+export default { user, error, uid, loading };
