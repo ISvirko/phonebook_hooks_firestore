@@ -6,7 +6,7 @@ import styles from "./Layout.module.css";
 
 const Layout = ({ children }) => {
   const darkTheme = useSelector((state) => themeSelectors.getTheme(state));
-
+  console.log(darkTheme);
   return (
     <div className={darkTheme ? "dark-theme" : ""}>
       <div className={styles.wrapper}>

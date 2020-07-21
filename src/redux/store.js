@@ -61,6 +61,8 @@ const themeReducer = combineReducers({
 
 const themePersistedReducer = persistReducer(themePersistConfig, themeReducer);
 
+// STORE
+
 const store = configureStore({
   reducer: {
     auth: authPersistedReducer,
