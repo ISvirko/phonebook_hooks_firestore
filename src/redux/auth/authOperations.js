@@ -54,7 +54,7 @@ const logout = () => async (dispatch) => {
 // GET CURRENT USER
 
 const getCurrentUser = () => async (dispatch, getState) => {
-  const { uid } = getState();
+  const { uid } = getState().auth;
   if (!uid) return;
 
   dispatch(authSlice.loading.actions.getCurrentUserRequest());

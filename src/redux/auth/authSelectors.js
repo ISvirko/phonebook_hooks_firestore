@@ -1,4 +1,4 @@
-const isAuth = (state) => state.uid;
+const isAuth = (state) => state.auth.uid;
 
 const getUserName = (state) => state.auth.user && state.auth.user.name;
 

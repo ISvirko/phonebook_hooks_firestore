@@ -1,10 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { themeSlice } from "../../redux/theme";
+import { themeSelectors } from "../../redux/theme";
 import "./themeToggler.css";
 
 const ThemeToggler = () => {
-  const darkTheme = useSelector((state) => state.darkTheme);
+  const darkTheme = useSelector((state) => themeSelectors.getTheme(state));
 
   const dispatch = useDispatch();
   return (

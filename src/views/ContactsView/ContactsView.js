@@ -12,13 +12,15 @@ import {
   contactsSelectors,
   contactsSlice,
 } from "../../redux/contacts";
-
+import { themeSelectors } from "../../redux/theme";
 import styles from "./ContactsView.module.css";
 
 const ContactsView = () => {
   const contacts = useSelector((state) => contactsSelectors.getContacts(state));
-  const darkTheme = useSelector((state) => state.darkTheme);
-  const collectionId = useSelector((state) => state.collectionId);
+  const darkTheme = useSelector((state) => themeSelectors.getTheme(state));
+  const collectionId = useSelector((state) =>
+    contactsSelectors.getCollectionId(state)
+  );
   const isLoading = useSelector((state) => contactsSelectors.getLoading(state));
   const error = useSelector((state) => contactsSelectors.getError(state));
   const [alert, setAlert] = useState(false);

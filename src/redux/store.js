@@ -9,37 +9,65 @@ import { authSlice } from "./auth";
 import { contactsSlice } from "./contacts";
 import { themeSlice } from "./theme";
 
-const persistConfig = {
-  key: "root",
+// AUTH
+
+const authPersistConfig = {
+  key: "auth",
   storage,
-  whitelist: ["darkTheme", "uid", "collectionId"],
+  whitelist: ["uid"],
 };
 
-const rootReducer = combineReducers({
-  contacts: combineReducers({
-    items: contactsSlice.items.reducer,
-    filter: contactsSlice.filter.reducer,
-    loading: contactsSlice.loading.reducer,
-    error: contactsSlice.error.reducer,
-    groupSort: contactsSlice.groupSort.reducer,
-  }),
-
-  collectionId: contactsSlice.collectionId.reducer,
-
-  darkTheme: themeSlice.darkTheme.reducer,
-
-  auth: combineReducers({
-    user: authSlice.user.reducer,
-    error: authSlice.error.reducer,
-  }),
-
+const authReducer = combineReducers({
+  user: authSlice.user.reducer,
+  error: authSlice.error.reducer,
   uid: authSlice.uid.reducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const authPersistedReducer = persistReducer(authPersistConfig, authReducer);
+
+// CONTACTS
+
+const contactsPersistConfig = {
+  key: "contacts",
+  storage,
+  whitelist: ["collectionId"],
+};
+
+const contactsReducer = combineReducers({
+  items: contactsSlice.items.reducer,
+  filter: contactsSlice.filter.reducer,
+  loading: contactsSlice.loading.reducer,
+  error: contactsSlice.error.reducer,
+  groupSort: contactsSlice.groupSort.reducer,
+  collectionId: contactsSlice.collectionId.reducer,
+});
+
+const contactsPersistedReducer = persistReducer(
+  contactsPersistConfig,
+  contactsReducer
+);
+
+// THEME
+
+const themePersistConfig = {
+  key: "theme",
+  storage,
+  whitelist: ["darkTheme"],
+};
+
+const themeReducer = combineReducers({
+  darkTheme: themeSlice.darkTheme.reducer,
+});
+
+const themePersistedReducer = persistReducer(themePersistConfig, themeReducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    auth: authPersistedReducer,
+    contacts: contactsPersistedReducer,
+    theme: themePersistedReducer,
+  },
+
   middleware: getDefaultMiddleware({
     serializableCheck: false,
   }),

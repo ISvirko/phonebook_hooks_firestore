@@ -9,7 +9,7 @@ const collectionConfig = {
 };
 
 const getCollectionPath = (state) => {
-  const collectionId = state.collectionId;
+  const collectionId = state.contacts.collectionId;
 
   return (
     collectionId &&
@@ -21,7 +21,7 @@ const getCollectionPath = (state) => {
 };
 
 const findCollection = async (state) => {
-  const uid = state.uid;
+  const uid = state.auth.uid;
 
   const collection = await db.firestore.collection(collectionConfig.title);
   return await collection.where("uid", "==", uid).get();
@@ -31,7 +31,7 @@ const findCollection = async (state) => {
 
 const createCollection = () => async (dispatch, getState) => {
   const userName = getState().auth.user.name;
-  const uid = getState().uid;
+  const uid = getState().auth.uid;
   dispatch(contactsSlice.loading.actions.createCollectionRequest());
 
   try {

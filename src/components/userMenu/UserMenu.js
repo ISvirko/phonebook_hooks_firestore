@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { authOperations } from "../../redux/auth";
+import { authOperations, authSelectors } from "../../redux/auth";
 import styles from "./UserMenu.module.css";
 
 const UserMenu = () => {
   const dispatch = useDispatch();
 
-  const name = useSelector((state) => state.auth.user && state.auth.user.name);
+  const name = useSelector((state) => authSelectors.getUserName(state));
   const avatar =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Emoji_u1f60e.svg/480px-Emoji_u1f60e.svg.png";
 
