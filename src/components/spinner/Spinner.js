@@ -21,14 +21,18 @@ class AwesomeComponent extends React.Component {
 
   render() {
     return (
-      <div className="sweet-loading spinner">
-        <SyncLoader
-          css={override}
-          size={15}
-          margin={2}
-          color={"#78c2ad"}
-          loading={this.state.loading}
-        />
+      <div className="spinner-wrapper">
+        <div className="spinner-overlay"></div>
+        <div className="spinner-content"></div>
+        <div className="sweet-loading spinner">
+          <SyncLoader
+            css={override}
+            size={15}
+            margin={2}
+            color={"#78c2ad"}
+            loading={this.state.loading}
+          />
+        </div>
       </div>
     );
   }

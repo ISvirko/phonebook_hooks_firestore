@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { authOperations, authSelectors, authSlice } from "../../redux/auth";
-import Alert from "../../components/alert/Alert";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { authOperations } from "../../redux/auth";
 import styles from "./LoginView.module.css";
 
 const initialState = {
@@ -10,22 +9,8 @@ const initialState = {
 };
 const LoginView = () => {
   const [state, setState] = useState(initialState);
-  const [alert, setAlert] = useState(false);
+
   const dispatch = useDispatch();
-  const error = useSelector((state) => authSelectors.getError(state));
-
-  useEffect(() => {
-    error && setAlert(true);
-
-    const alertTimeout = setTimeout(() => {
-      setAlert(false);
-      error && dispatch(authSlice.error.actions.resetError());
-
-      return () => {
-        clearTimeout(alertTimeout);
-      };
-    }, 3000);
-  }, [error, dispatch]);
 
   const handleChange = ({ target: { name, value } }) => {
     setState((prev) => ({ ...prev, [name]: value }));
@@ -41,8 +26,6 @@ const LoginView = () => {
 
   return (
     <>
-      {error && <Alert title={error} show={alert} />}
-
       <h1 className={styles.title}>Login</h1>
       <form onSubmit={handleSubmit} className={styles.form}>
         <fieldset>

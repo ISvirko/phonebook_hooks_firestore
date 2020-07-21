@@ -77,10 +77,33 @@ body {
   color: white;
 }
 
-.spinner {
-  width: 100%;
-  min-height: 90vh;
-  position: relative;
+.spinner-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.spinner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.spinner-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-menu {
@@ -89,6 +112,7 @@ body {
   margin-bottom: 50px;
   padding-left: 5%;
   padding-right: 5%;
+  z-index: 2;
 }
 
 .custom-btn {

@@ -57,6 +57,8 @@ const setUserCollectionId = () => async (dispatch, getState) => {
   dispatch(contactsSlice.loading.actions.getCollectionIdRequest());
 
   try {
+    dispatch(contactsSlice.collectionId.actions.getCollectionIdSuccess(null));
+
     const userCollection = await findCollection(getState());
 
     userCollection.docs.forEach((elem) => {
