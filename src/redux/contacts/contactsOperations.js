@@ -32,6 +32,7 @@ const findCollection = async (state) => {
 const createCollection = () => async (dispatch, getState) => {
   const userName = getState().auth.user.name;
   const uid = getState().auth.uid;
+
   dispatch(contactsSlice.loading.actions.createCollectionRequest());
 
   try {

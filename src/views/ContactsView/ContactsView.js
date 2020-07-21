@@ -19,9 +19,7 @@ const ContactsView = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    collectionId
-      ? dispatch(contactsOperations.fetchContacts())
-      : dispatch(contactsOperations.createCollection());
+    collectionId && dispatch(contactsOperations.fetchContacts());
   }, [dispatch, collectionId]);
 
   return (
