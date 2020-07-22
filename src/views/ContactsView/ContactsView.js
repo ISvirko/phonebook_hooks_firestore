@@ -12,23 +12,19 @@ import styles from "./ContactsView.module.css";
 const ContactsView = () => {
   const contacts = useSelector((state) => contactsSelectors.getContacts(state));
   const darkTheme = useSelector((state) => themeSelectors.getTheme(state));
+
+  const dispatch = useDispatch();
+
   const collectionId = useSelector((state) =>
     contactsSelectors.getCollectionId(state)
   );
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(contactsOperations.setUserCollectionId());
+  }, [dispatch]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(contactsOperations.setUserCollectionId());
-      !collectionId && (await dispatch(contactsOperations.createCollection()));
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    dispatch(contactsOperations.fetchContacts());
+    collectionId && dispatch(contactsOperations.fetchContacts());
   }, [dispatch, collectionId]);
 
   return (

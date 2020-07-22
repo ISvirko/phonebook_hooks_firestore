@@ -10,6 +10,7 @@ import { authOperations, authSelectors } from "../redux/auth";
 
 const App = () => {
   const uid = useSelector((state) => authSelectors.isAuth(state));
+
   const dispatch = useDispatch();
 
   useEffect(() => {

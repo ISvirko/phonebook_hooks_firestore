@@ -55,6 +55,9 @@ const createCollection = () => async (dispatch, getState) => {
 // SET USER COLLECTION ID
 
 const setUserCollectionId = () => async (dispatch, getState) => {
+  const { uid } = getState().auth;
+  if (!uid) return;
+
   dispatch(contactsSlice.loading.actions.getCollectionIdRequest());
 
   try {
@@ -62,11 +65,12 @@ const setUserCollectionId = () => async (dispatch, getState) => {
 
     const userCollection = await findCollection(getState());
 
-    userCollection.docs.forEach((elem) => {
-      dispatch(
-        contactsSlice.collectionId.actions.getCollectionIdSuccess(elem.id)
-      );
-    });
+    userCollection &&
+      userCollection.docs.forEach((elem) => {
+        dispatch(
+          contactsSlice.collectionId.actions.getCollectionIdSuccess(elem.id)
+        );
+      });
   } catch (error) {
     dispatch(contactsSlice.error.actions.getCollectionIdError(error.message));
   }

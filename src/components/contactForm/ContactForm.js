@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CustomSelect from "../../ui/CustomSelect";
-import { contactsOperations } from "../../redux/contacts";
+import { contactsOperations, contactsSelectors } from "../../redux/contacts";
 import styles from "./ContactForm.module.css";
 
 const ContactForm = () => {
@@ -10,11 +10,19 @@ const ContactForm = () => {
   const [selectedGroup, setGroup] = useState("");
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const collectionId = useSelector((state) =>
+    contactsSelectors.getCollectionId(state)
+  );
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (name.trim && number.trim()) {
-      dispatch(contactsOperations.addContact({ name, number, selectedGroup }));
+    !collectionId && (await dispatch(contactsOperations.createCollection()));
+
+    if (name.trim() && number.trim()) {
+      await dispatch(
+        contactsOperations.addContact({ name, number, selectedGroup })
+      );
 
       setName("");
       setNumber("");

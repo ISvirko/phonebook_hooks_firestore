@@ -11,7 +11,7 @@ const HomeView = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.text}>
-        <h1 className={styles.title}>Contact Book</h1>
+        <h1 className={styles.title}>Keep your contacts organized</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
           possimus totam deserunt aperiam placeat veniam consequuntur nulla
@@ -23,7 +23,7 @@ const HomeView = () => {
             <Link to={loginRoute.path}> Log in</Link>
           </p>
         ) : (
-          <Link to={contactsRoute.path}>My Contact Book</Link>
+          <Link to={contactsRoute.path}>My Phonebook</Link>
         )}
       </div>
       <div>
