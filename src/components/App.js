@@ -7,26 +7,14 @@ import PublicRoute from "./PublicRoute";
 import Spinner from "../components/spinner/Spinner";
 import routes from "../routes";
 import { authOperations, authSelectors } from "../redux/auth";
-import { contactsOperations, contactsSelectors } from "../redux/contacts";
 
 const App = () => {
   const uid = useSelector((state) => authSelectors.isAuth(state));
-  const collectionId = useSelector((state) =>
-    contactsSelectors.getCollectionId(state)
-  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(authOperations.getCurrentUser());
   }, [uid, dispatch]);
-
-  useEffect(() => {
-    dispatch(contactsOperations.setUserCollectionId());
-  }, [uid, dispatch]);
-
-  useEffect(() => {
-    !collectionId && dispatch(contactsOperations.createCollection());
-  }, []);
 
   return (
     <BrowserRouter>

@@ -19,7 +19,16 @@ const ContactsView = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    collectionId && dispatch(contactsOperations.fetchContacts());
+    const fetchData = async () => {
+      await dispatch(contactsOperations.setUserCollectionId());
+      !collectionId && (await dispatch(contactsOperations.createCollection()));
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    dispatch(contactsOperations.fetchContacts());
   }, [dispatch, collectionId]);
 
   return (
@@ -37,7 +46,7 @@ const ContactsView = () => {
         </div>
       )}
 
-      {contacts && <ContactList />}
+      {contacts.length > 0 ? <ContactList /> : <p>No contacts here yet</p>}
     </div>
   );
 };

@@ -115,21 +115,25 @@ const addContact = ({ name, number, selectedGroup }) => async (
 // FETCH CONTACTS
 
 const fetchContacts = () => async (dispatch, getState) => {
-  dispatch(contactsSlice.loading.actions.fetchContactsRequest());
+  const collectionId = getState().contacts.collectionId;
 
-  try {
-    const userCollection = getCollectionPath(getState());
+  if (collectionId) {
+    dispatch(contactsSlice.loading.actions.fetchContactsRequest());
 
-    const data = await userCollection.get();
+    try {
+      const userCollection = getCollectionPath(getState());
 
-    const contacts = data.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data().contact,
-    }));
+      const data = await userCollection.get();
 
-    dispatch(contactsSlice.items.actions.fetchContactsSuccess(contacts));
-  } catch (error) {
-    dispatch(contactsSlice.error.actions.fetchContactsError(error.message));
+      const contacts = data.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data().contact,
+      }));
+
+      dispatch(contactsSlice.items.actions.fetchContactsSuccess(contacts));
+    } catch (error) {
+      dispatch(contactsSlice.error.actions.fetchContactsError(error.message));
+    }
   }
 };
 
